@@ -6,6 +6,7 @@ import 'package:caching_test/utils/enum.dart';
 import 'package:caching_test/utils/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as d;
+import 'package:objectbox/internal.dart';
 
 class CacheController extends ChangeNotifier {
   CacheController() {
@@ -34,9 +35,10 @@ class CacheController extends ChangeNotifier {
                    * First time Data is cached
                    * when internet is available
                    **/
-                  person.forEach((element) async {
-                    await objectBox.insertPerson(element);
-                  });
+                  // person.forEach((element) async {
+                  //   await objectBox.insertPerson(element);
+                  // });
+                  objectBox.setPersonList(data.person!.toList());
                 }
               }
             }

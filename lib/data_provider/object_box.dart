@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:caching_test/mvc/module_name/model/person.dart';
 import 'package:caching_test/mvc/module_name/model/build_runner_file/objectbox.g.dart';
 
-
 class ObjectBox {
   late final Store _store;
   late final Box<PersonElement> _userBox;
@@ -14,7 +13,7 @@ class ObjectBox {
 
   static Future<ObjectBox> init() async {
     final store = await openStore();
-    
+
     if (Sync.isAvailable()) {
       /// Or use the ip address of your server
       //final ipSyncServer = '123.456.789.012';
@@ -30,7 +29,7 @@ class ObjectBox {
 
     return ObjectBox._init(store);
   }
-  
+
   PersonElement? getPersonElement(int id) => _userBox.get(id);
 
   Stream<List<PersonElement>> getPersonElements() => _userBox
@@ -40,6 +39,10 @@ class ObjectBox {
 
   List<PersonElement> getPersonList() {
     return _userBox.query().build().find();
+  }
+
+  void setPersonList(List<PersonElement> personElement) {
+    _userBox.putMany(personElement);
   }
 
   int insertPerson(PersonElement user) => _userBox.put(user);
